@@ -5,6 +5,7 @@ interface CalcContextData{
   result: string;
   changeInputValue: (value: string) => void;
   calcExpression: (expression: string) => void;
+  clearValues: () => void;
 }
 
 export const CreateCalcContext = createContext({} as CalcContextData)
@@ -14,20 +15,25 @@ export const CalcContextProvider: React.FC = ({ children }) => {
   const [result, setResult] = useState<string>('')
 
   const changeInputValue = useCallback((value: string) => {
-    console.log('test')
     setInputValue(value)
   }, [])
 
-  function calcExpression (expression: string) {
+  const clearValues = useCallback(() => {
+    inputValue && setInputValue('')
+    result && setResult('')
+  }, [inputValue, result])
+
+  const calcExpression = useCallback((expression: string) => {
     setResult(expression)
-  }
+  }, [])
 
   return (
     <CreateCalcContext.Provider value={{
       inputValue,
       result,
       changeInputValue,
-      calcExpression
+      calcExpression,
+      clearValues
     }}>
       {children}
     </CreateCalcContext.Provider>

@@ -4,7 +4,7 @@ export const Container = styled.div`
   ${() => css`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    height: calc(100vh - 141px);
+    height: calc(100vh - 140.36px);
   `}
 `
 
